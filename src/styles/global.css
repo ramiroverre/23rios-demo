@@ -1,0 +1,136 @@
+/* ─── Reset & Base ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ── Brand Colors (extraídos del brand guidelines) ── */
+  --navy:        #151525;   /* Fondo principal - oscuro profundo */
+  --navy-mid:    #1E1B30;   /* Cards y secciones */
+  --navy-dark:   #0E0E1E;   /* Hero y fondos más oscuros */
+  --navy-light:  #2A2545;   /* Bordes y superficies claras */
+
+  --gold:        #F5C218;   /* Amarillo dorado - del brand PDF */
+  --gold-dark:   #C89B0E;   /* Dorado oscuro para hover */
+  --gold-pale:   rgba(245,194,24,0.08);
+
+  --coral:       #E8607A;   /* Rosa vibrante - color principal del brand PDF */
+  --coral-dark:  #C44A62;
+
+  --teal:        #47B8CA;   /* Celeste/sky blue - del brand PDF */
+  --teal-dark:   #2F96A8;
+
+  --cream:       #FFF8F2;   /* Crema cálida - para secciones claras */
+
+  --white:       #FFFFFF;
+  --text:        #EEF0F8;   /* Blanco azulado suave */
+  --text-muted:  rgba(238,240,248,0.5);
+  --border:      rgba(232,96,122,0.18);
+  --border-dim:  rgba(255,255,255,0.06);
+
+  /* ── Typography ── */
+  --font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --font-heading: 'Fredoka', sans-serif;
+  --font-body:    'Nunito', system-ui, sans-serif;
+
+  /* ── Spacing ── */
+  --max-width: 1200px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--navy);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy-dark); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ─── Selection ─────────────────────────────────────────────────── */
+::selection { background: var(--gold); color: var(--navy-dark); }
+
+/* ─── Typography ────────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; }
+
+/* ─── Layout ────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ─── Utility ───────────────────────────────────────────────────── */
+.tag-pill {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 6px 18px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+.tag-pill--gold  { background: var(--gold);  color: var(--navy-dark); }
+.tag-pill--coral { background: var(--coral); color: var(--white); }
+.tag-pill--teal  { background: var(--teal);  color: var(--navy-dark); }
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  background: var(--gold);
+  color: var(--navy-dark);
+  padding: 16px 36px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+  letter-spacing: 0.02em;
+}
+.btn-gold:hover { background: #FFD000; transform: translateY(-3px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  background: transparent;
+  color: var(--white);
+  padding: 14px 36px;
+  border-radius: 100px;
+  border: 2px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: border-color 0.25s, transform 0.25s, background 0.25s;
+  letter-spacing: 0.02em;
+}
+.btn-outline:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.07);
+  transform: translateY(-3px);
+}
