@@ -138,6 +138,53 @@ export default function Location() {
         }
         .ta-link:hover { gap: 13px; }
 
+        /* Hours */
+        .loc-hours {
+          background: var(--navy);
+          border: 1px solid var(--border-dim);
+          border-radius: 16px;
+          padding: 24px 28px;
+          margin-bottom: 32px;
+        }
+        .loc-hours-header {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 16px;
+        }
+        .loc-hours-badge {
+          font-family: var(--font-heading);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--gold);
+          background: rgba(245,184,0,0.1);
+          border: 1px solid rgba(245,184,0,0.25);
+          padding: 3px 10px;
+          border-radius: 100px;
+        }
+        .loc-hours-title {
+          font-family: var(--font-heading);
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: var(--text);
+        }
+        .loc-hours-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 8px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          font-family: var(--font-heading);
+          font-size: 14px;
+        }
+        .loc-hours-row:last-child { border-bottom: none; }
+        .loc-hours-day { color: var(--text-muted); font-weight: 400; }
+        .loc-hours-time { color: var(--text); font-weight: 700; }
+
         /* Map */
         .map-card {
           border: 1px solid var(--border-dim);
@@ -222,6 +269,29 @@ export default function Location() {
               </a>
             </div>
 
+            <div className="loc-hours">
+              <div className="loc-hours-header">
+                <span className="loc-hours-badge">Otoño</span>
+                <span className="loc-hours-title">Horarios de Atención</span>
+              </div>
+              <div className="loc-hours-row">
+                <span className="loc-hours-day">Jueves</span>
+                <span className="loc-hours-time">18:00 – 01:00</span>
+              </div>
+              <div className="loc-hours-row">
+                <span className="loc-hours-day">Viernes</span>
+                <span className="loc-hours-time">18:00 – 02:00</span>
+              </div>
+              <div className="loc-hours-row">
+                <span className="loc-hours-day">Sábados</span>
+                <span className="loc-hours-time">12:00 – 02:30</span>
+              </div>
+              <div className="loc-hours-row">
+                <span className="loc-hours-day">Domingo</span>
+                <span className="loc-hours-time">12:00 – 20:00</span>
+              </div>
+            </div>
+
             <div className="ta-card">
               <div className="ta-top">
                 <span className="ta-badge">TripAdvisor</span>
@@ -264,7 +334,7 @@ export default function Location() {
               />
             </div>
             <a
-              href="https://www.google.com/maps/place/23+R%C3%ADos+Craftbeer+Luj%C3%A1n+de+Cuyo/@-32.9619938,-68.8705004,15z/data=!4m6!3m5!1s0x967e0b043b3dc37d:0xdf8dd1560e4dc18f!8m2!3d-32.9857242!4d-68.8481591"
+              href="https://www.google.com/maps/dir/?api=1&destination=Acceso+Sur+-+Lateral+Este+5269,+M5781+Mendoza,+Argentina"
               target="_blank" rel="noopener noreferrer"
               className="map-open-btn"
             >

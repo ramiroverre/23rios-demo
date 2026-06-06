@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
+import Gallery from './components/Gallery'
 import Experiences from './components/Experiences'
 import MenuCTA from './components/MenuCTA'
 import Location from './components/Location'
@@ -14,6 +15,7 @@ export default function App() {
       <main>
         <Hero />
         <About />
+        <Gallery />
         <Experiences />
         <MenuCTA />
         <Location />

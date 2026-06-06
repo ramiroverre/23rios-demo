@@ -2,10 +2,41 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import logo from '../../assets/23rios-logo.png'
 
+function ElegantShape({ delay = 0, width = 400, height = 100, rotate = 0, gradientColor = 'rgba(232,96,122,0.15)', style = {} }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -150, rotate: rotate - 15 }}
+      animate={{ opacity: 1, y: 0, rotate }}
+      transition={{
+        duration: 2.4,
+        delay,
+        ease: [0.23, 0.86, 0.39, 0.96],
+        opacity: { duration: 1.2 },
+      }}
+      style={{ position: 'absolute', ...style }}
+    >
+      <motion.div
+        animate={{ y: [0, 15, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ width, height, position: 'relative' }}
+      >
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: '9999px',
+          background: `linear-gradient(to right, ${gradientColor}, transparent)`,
+          backdropFilter: 'blur(2px)',
+          border: '2px solid rgba(255,255,255,0.15)',
+          boxShadow: '0 8px 32px 0 rgba(255,255,255,0.1)',
+        }} />
+      </motion.div>
+    </motion.div>
+  )
+}
+
 export default function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const y       = useTransform(scrollYProgress, [0, 1], ['0%', '25%'])
   const opacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
 
   const stagger = {
@@ -30,35 +61,26 @@ export default function Hero() {
           position: relative;
           min-height: 100vh;
           padding-top: 90px;
-          padding-bottom: 120px;
+          padding-bottom: 40px;
           display: flex; align-items: center; justify-content: center;
           text-align: center;
           overflow: hidden;
           background: var(--navy-dark);
         }
 
-        /* Radial glow behind logo */
-        .hero-glow {
-          position: absolute;
-          width: 600px; height: 600px;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(232,96,122,0.18) 0%, transparent 70%);
-          top: 50%; left: 50%;
-          transform: translate(-50%, -55%);
+        .hero-bg-gradient {
+          position: absolute; inset: 0;
+          background: radial-gradient(ellipse at 30% 50%, rgba(232,96,122,0.05) 0%, transparent 60%),
+                      radial-gradient(ellipse at 70% 50%, rgba(71,184,202,0.04) 0%, transparent 60%);
           pointer-events: none;
+          z-index: 0;
         }
 
-        /* Diagonal stripe pattern overlay */
-        .hero-pattern {
+        .hero-shapes {
           position: absolute; inset: 0;
-          background-image: repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 40px,
-            rgba(232,96,122,0.02) 40px,
-            rgba(232,96,122,0.02) 41px
-          );
+          overflow: hidden;
           pointer-events: none;
+          z-index: 0;
         }
 
         .hero-bottom-fade {
@@ -66,10 +88,11 @@ export default function Hero() {
           height: 200px;
           background: linear-gradient(to bottom, transparent, var(--navy));
           pointer-events: none;
+          z-index: 1;
         }
 
         .hero-content {
-          position: relative; z-index: 2;
+          position: relative; z-index: 10;
           display: flex; flex-direction: column; align-items: center;
           padding: 0 24px;
           max-width: 860px;
@@ -120,43 +143,11 @@ export default function Hero() {
           display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
         }
 
-        /* Scroll cue */
-        .scroll-cue {
-          position: absolute; bottom: 40px; left: 50%;
-          transform: translateX(-50%);
-          display: flex; flex-direction: column; align-items: center; gap: 8px;
-          z-index: 2;
-        }
-        .scroll-cue-text {
-          font-family: var(--font-heading);
-          font-size: 11px; font-weight: 600;
-          letter-spacing: 0.2em; text-transform: uppercase;
-          color: rgba(238,240,248,0.3);
-        }
-        .scroll-mouse {
-          width: 22px; height: 34px;
-          border: 1.5px solid rgba(245,184,0,0.35);
-          border-radius: 12px;
-          position: relative;
-          display: flex; justify-content: center;
-        }
-        .scroll-mouse-dot {
-          width: 3px; height: 8px;
-          background: var(--gold);
-          border-radius: 2px;
-          margin-top: 6px;
-          animation: scrollBounce 2s ease-in-out infinite;
-        }
-        @keyframes scrollBounce {
-          0%, 100% { opacity: 1; transform: translateY(0); }
-          50% { opacity: 0.3; transform: translateY(8px); }
-        }
-
-        /* Gold star decorators */
         .hero-star {
           position: absolute;
           pointer-events: none;
           opacity: 0.4;
+          z-index: 2;
         }
         .hero-star--tl { top: 22%; left: 8%;  width: 28px; }
         .hero-star--tr { top: 18%; right: 9%; width: 20px; }
@@ -165,10 +156,44 @@ export default function Hero() {
       `}</style>
 
       <section className="hero" ref={ref}>
-        <motion.div className="hero-glow" style={{ y }} />
-        <div className="hero-pattern" />
+        {/* Subtle radial gradient base */}
+        <div className="hero-bg-gradient" />
 
-        {/* Decorative stars from the brand */}
+        {/* Animated geometric shapes — z-index 0, pointer-events none via CSS class */}
+        <div className="hero-shapes">
+          <ElegantShape
+            delay={0.3}
+            width={600} height={140} rotate={12}
+            gradientColor="rgba(232,96,122,0.18)"
+            style={{ left: '-5%', top: '20%' }}
+          />
+          <ElegantShape
+            delay={0.5}
+            width={500} height={120} rotate={-15}
+            gradientColor="rgba(245,194,24,0.15)"
+            style={{ right: '0%', top: '72%' }}
+          />
+          <ElegantShape
+            delay={0.4}
+            width={300} height={80} rotate={-8}
+            gradientColor="rgba(71,184,202,0.15)"
+            style={{ left: '10%', bottom: '10%' }}
+          />
+          <ElegantShape
+            delay={0.6}
+            width={200} height={60} rotate={20}
+            gradientColor="rgba(245,194,24,0.18)"
+            style={{ right: '18%', top: '12%' }}
+          />
+          <ElegantShape
+            delay={0.7}
+            width={150} height={40} rotate={-25}
+            gradientColor="rgba(71,184,202,0.18)"
+            style={{ left: '22%', top: '8%' }}
+          />
+        </div>
+
+        {/* Decorative stars */}
         {['tl','tr','bl','br'].map(pos => (
           <svg key={pos} className={`hero-star hero-star--${pos}`} viewBox="0 0 24 24" fill="var(--gold)">
             <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
@@ -221,18 +246,6 @@ export default function Hero() {
               Reservas / Consultas
             </a>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="scroll-cue"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 0.8 }}
-        >
-          <span className="scroll-cue-text">Scroll</span>
-          <div className="scroll-mouse">
-            <div className="scroll-mouse-dot" />
-          </div>
         </motion.div>
 
         <div className="hero-bottom-fade" />

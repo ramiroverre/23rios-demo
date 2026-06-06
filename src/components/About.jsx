@@ -21,7 +21,7 @@ export default function About() {
     <>
       <style>{`
         .about {
-          padding: 120px 24px;
+          padding: 60px 24px 120px;
           background: var(--navy);
           position: relative;
           overflow: hidden;
